@@ -24,6 +24,7 @@ ENV/
 
 # Spotify exports and generated analysis data
 my_spotify_data/
+spotify_data.local.json
 *.csv
 *.xlsx
 *.json
