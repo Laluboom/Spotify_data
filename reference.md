@@ -1,28 +1,61 @@
 # Reference — Spotify_data
 
-_Last refreshed: 2026-05-30_
+_Last refreshed: 2026-09-19_
+
+## Status: PARKED — blocked on missing data
+
+This repo contains **no code**. It has four tracked files (`reference.md`, `todo.md`,
+`last_run.json`, `.gitignore`) and two commits, both on 2026-05-30. Nothing since.
+
+More importantly: **the Spotify export is gone from this machine.** Neither
+`my_spotify_data/` nor `spotify_data.local.json` exists, and `git status --ignored`
+reports zero ignored files. The project is premised on a dataset that is not here.
 
 ## Purpose
-Spotify data export workspace for future listening-history and behavior analysis. Raw exports and private dataset metadata stay local and are not tracked in Git.
+
+Analyze a personal Spotify "Download your data" export — listening history, skips,
+search activity, playlist/collection events — locally. Raw exports are personal data
+and stay out of Git.
 
 ## Stack
-- Data only — JSON files exported via Spotify's "Download your data" feature
-- No scripts, no dependencies
+
+Nothing chosen. No language, no dependencies, no scripts. A future implementation
+would most naturally be Python + pandas over the export's JSON files, but that is a
+guess, not a decision.
 
 ## Entry Points
-```bash
-# No runnable code exists yet. To start analysis:
-python3 -c "import json; data = json.load(open('my_spotify_data/Spotify Technical Log Information/BoomboxPlaybackSession.json')); print(len(data), 'playback sessions')"
-```
+
+None. There is no runnable code.
+
+The previous version of this file documented a `python3 -c "import json; ..."` one-liner
+against `my_spotify_data/Spotify Technical Log Information/BoomboxPlaybackSession.json`.
+That path does not exist, so the command fails with `FileNotFoundError`. It has been
+removed rather than left as a trap.
 
 ## Key Files
-| File or path | Role |
-|--------------|------|
-| `my_spotify_data/` | Local raw Spotify export — ignored by Git |
-| `spotify_data.local.json` | Local private export summary — ignored by Git |
-| `reference.md` | Safe tracked project reference |
-| `todo.md` | Safe tracked next steps |
-| `last_run.json` | Safe tracked run summary |
 
-## Run Status (2026-05-30)
-No runnable analysis code exists yet. Raw export files were inspected locally and are ignored. Keep exact dataset counts, device details, location data, search terms, links, and listening history in ignored local files only.
+| File | Role |
+|------|------|
+| `reference.md` | This file |
+| `todo.md` | Ranked next steps — currently a wind-down/park list |
+| `last_run.json` | Review record |
+| `.gitignore` | Ignores exports; note the `*.json` blanket rule at line 30 |
+
+## What would have to be true to start
+
+1. A fresh Spotify export downloaded and unpacked locally. Spotify takes up to
+   **30 days** to fulfil the request, so this is the long pole.
+2. One specific question worth answering, written down. "Listening pattern analysis"
+   is not a scope; "what fraction of tracks do I skip within 30s, by hour of day?"
+   is one afternoon of work.
+
+Until both hold, there is nothing to build.
+
+## Note on the sanitize commit
+
+`ea364b7` ("Sanitize Spotify data scaffold") replaced every concrete dataset fact in
+`last_run.json` with `"redacted"` — file counts, total size, event counts, date range.
+Privacy-wise that was right; practically it means the repo no longer records anything
+about the shape of the data it was built around. If the export returns, record the
+*schema* (field names, types, row counts) in a gitignored local file so that knowledge
+survives the next cleanup.
